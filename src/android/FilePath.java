@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.database.Cursor;
 import android.os.Build;
+import java.io.FileNotFoundException;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -173,7 +174,7 @@ public class FilePath extends CordovaPlugin {
     Bitmap bmp;
     try {
         input = context.getContentResolver().openInputStream(uri);
-        type = context.getContentResolver().getType(uri);
+        type = ContentResolver.getType(uri);
         Log.d(TAG,type);
         bmp = BitmapFactory.decodeStream(input);
         return encodeTobase64(bmp);
