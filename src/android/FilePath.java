@@ -3,6 +3,7 @@ package com.hiddentao.cordova.filepath;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.net.Uri;
 import android.util.Log;
 import android.database.Cursor;
@@ -21,9 +22,10 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.util.List;
-import java.util.Base64;
+import android.util.Base64;
 import java.io.File;
 import java.io.InputStream;
+import java.io.ByteArrayOutputStream
 
 public class FilePath extends CordovaPlugin {
 
@@ -171,7 +173,7 @@ public class FilePath extends CordovaPlugin {
     Bitmap bmp;
     try {
         input = context.getContentResolver().openInputStream(uri);
-        type = getType(uri);
+        type = context.getContentResolver().getType(uri);
         Log.d(TAG,type);
         bmp = BitmapFactory.decodeStream(input);
         return encodeToBase64(bmp);
