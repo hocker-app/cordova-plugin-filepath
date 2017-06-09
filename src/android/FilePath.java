@@ -176,7 +176,7 @@ public class FilePath extends CordovaPlugin {
         type = context.getContentResolver().getType(uri);
         Log.d(TAG,type);
         bmp = BitmapFactory.decodeStream(input);
-        return encodeToBase64(bmp);
+        return encodeTobase64(bmp);
     } catch (FileNotFoundException e1) {
         
     }
