@@ -318,15 +318,15 @@ public class FilePath extends CordovaPlugin {
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
             // Return the remote address
-            if (isGooglePhotosUri(uri)) {
-                String contentPath = getContentFromSegments(uri.getPathSegments());
-                if (contentPath != "") {
-                    return getPath(context, Uri.parse(contentPath));
-                }
-                else {
-                    return null;
-                }
+            
+            String contentPath = getContentFromSegments(uri.getPathSegments());
+            if (contentPath != "") {
+                return getPath(context, Uri.parse(contentPath));
             }
+            else {
+                return null;
+            }
+           }
 
             return getDataColumn(context, uri, null, null);
         }
