@@ -133,6 +133,7 @@ public class FilePath extends CordovaPlugin {
     private static boolean isGoogleDriveUri(Uri uri) {
         return "com.google.android.apps.docs.storage".equals(uri.getAuthority());
     }
+   
 
     /**
      * Get the value of the data column for this Uri. This is useful for
@@ -160,7 +161,10 @@ public class FilePath extends CordovaPlugin {
                 final int column_index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(column_index);
             }
-        } finally {
+        }catch(Exception e){
+            String contentPath = getContentFromSegments(uri.getPathSegments());
+            return getPath(context,Uri.parse(contentPath);
+        }finally {
             if (cursor != null)
                 cursor.close();
         }
@@ -318,7 +322,7 @@ public class FilePath extends CordovaPlugin {
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
             // Return the remote address
-            
+            if(isGoogleDriveUri(uri)){
             String contentPath = getContentFromSegments(uri.getPathSegments());
             if (contentPath != "") {
                 return getPath(context, Uri.parse(contentPath));
@@ -326,7 +330,7 @@ public class FilePath extends CordovaPlugin {
             else {
                 return null;
             }
-           
+            }           
 
             return getDataColumn(context, uri, null, null);
         }
