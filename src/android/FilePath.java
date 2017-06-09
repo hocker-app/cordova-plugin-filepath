@@ -21,7 +21,9 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.util.List;
+import java.util.Base64;
 import java.io.File;
+import java.io.InputStream;
 
 public class FilePath extends CordovaPlugin {
 
@@ -169,7 +171,7 @@ public class FilePath extends CordovaPlugin {
     Bitmap bmp;
     try {
         input = context.getContentResolver().openInputStream(uri);
-        type = context.getContentResolver().getType();
+        type = getType(uri);
         Log.d(TAG,type);
         bmp = BitmapFactory.decodeStream(input);
         return encodeToBase64(bmp);
