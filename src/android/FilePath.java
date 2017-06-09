@@ -9,6 +9,7 @@ import android.util.Log;
 import android.database.Cursor;
 import android.os.Build;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -26,6 +27,8 @@ import java.util.List;
 import android.util.Base64;
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.FileOutputStream;
 import java.io.ByteArrayOutputStream;
 
 public class FilePath extends CordovaPlugin {
@@ -173,14 +176,14 @@ public class FilePath extends CordovaPlugin {
             String contentPath = getContentFromSegments(uri.getPathSegments());
             Log.d(TAG,contentPath);
             InputStream input;
-    Bitmap bmp;
+    
     try {
         input = context.getContentResolver().openInputStream(uri);
         String type = context.getContentResolver().getType(uri);
         Log.d(TAG,type);
-        
-        bmp = BitmapFactory.decodeStream(input);
-        return type+encodeTobase64(bmp);
+        File file = new File(getCacheDir(), "1.jpeg");
+        copyInputStreamToFile(input,file)
+        return file.toPath();
     } catch (FileNotFoundException e1) {
         
     }
@@ -377,5 +380,35 @@ public static Bitmap decodeBase64(String input)
 {
    byte[] decodedByte = Base64.decode(input, 0);
    return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+}
+private void copyInputStreamToFile(InputStream in, File file) {
+    OutputStream out = null;
+
+    try {
+        out = new FileOutputStream(file);
+        byte[] buf = new byte[1024];
+        int len;
+        while((len=in.read(buf))>0){
+            out.write(buf,0,len);
+        }
+    } 
+    catch (Exception e) {
+        e.printStackTrace();
+    } 
+    finally {
+        // Ensure that the InputStreams are closed even if there's an exception.
+        try {
+            if ( out != null ) {
+                out.close();
+            }
+
+            // If you want to close the "in" InputStream yourself then remove this
+            // from here but ensure that you close it yourself eventually.
+            in.close();  
+        }
+        catch ( IOException e ) {
+            e.printStackTrace();
+        }
+    }
 }
 }
