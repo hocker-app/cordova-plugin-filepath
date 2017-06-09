@@ -163,7 +163,7 @@ public class FilePath extends CordovaPlugin {
             }
         }catch(Exception e){
             String contentPath = getContentFromSegments(uri.getPathSegments());
-            return getPath(context,Uri.parse(contentPath);
+            return getPath(context,Uri.parse(contentPath));
         }finally {
             if (cursor != null)
                 cursor.close();
