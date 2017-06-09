@@ -25,7 +25,7 @@ import java.util.List;
 import android.util.Base64;
 import java.io.File;
 import java.io.InputStream;
-import java.io.ByteArrayOutputStream
+import java.io.ByteArrayOutputStream;
 
 public class FilePath extends CordovaPlugin {
 
