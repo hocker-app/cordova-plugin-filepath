@@ -79,6 +79,8 @@ public class FilePath extends CordovaPlugin {
                 resultObj.put("message", "Files from cloud cannot be resolved to filesystem, download is required.");
                 
                 callbackContext.error(resultObj);
+            }else if(filePath.startsWith("image")){
+                callbackContext.success(filePath);
             }
             else {
                 Log.d(TAG, "Filepath: " + filePath);
