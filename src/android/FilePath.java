@@ -326,7 +326,7 @@ public class FilePath extends CordovaPlugin {
             else {
                 return null;
             }
-           }
+           
 
             return getDataColumn(context, uri, null, null);
         }
