@@ -181,7 +181,7 @@ public class FilePath extends CordovaPlugin {
         input = context.getContentResolver().openInputStream(uri);
         String type = context.getContentResolver().getType(uri);
         Log.d(TAG,type);
-        File file = new File(getCacheDir(), "1.jpeg");
+        File file = new File(context.getCacheDir(), "1.jpeg");
         copyInputStreamToFile(input,file);
         return file.getPath();
     } catch (FileNotFoundException e1) {
