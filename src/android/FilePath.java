@@ -174,7 +174,7 @@ public class FilePath extends CordovaPlugin {
     Bitmap bmp;
     try {
         input = context.getContentResolver().openInputStream(uri);
-        type = ContentResolver.getType(uri);
+        String type = context.getContentResolver().getType(uri);
         Log.d(TAG,type);
         bmp = BitmapFactory.decodeStream(input);
         return encodeTobase64(bmp);
